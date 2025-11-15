@@ -18,8 +18,8 @@ const features = [
   },
   {
     icon: Image,
-    title: "Conteúdo Completo",
-    description: "Gera textos persuasivos, imagens impactantes e em breve vídeos envolventes — tudo automaticamente.",
+    title: "Múltiplos Agendamentos",
+    description: "Crie várias campanhas com temas diferentes para o mesmo blog. Desenvolva linhas editoriais e agende posts para eventos e datas comemorativas.",
   },
   {
     icon: Target,

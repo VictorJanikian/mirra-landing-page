@@ -1,7 +1,7 @@
 
-  # Landing Page for Mirra AI (Community)
+  # Landing Page for Mirra AI
 
-  This is a code bundle for Landing Page for Mirra AI (Community). The original project is available at https://www.figma.com/design/65lH6Vf2fGbVgJW5XDehcX/Landing-Page-for-Mirra-AI--Community-.
+  This is a code bundle for Landing Page for Mirra AI. The original project is available at https://www.figma.com/design/8Zx6r92QUuZt7IhgnjbHSw/Landing-Page-for-Mirra-AI.
 
   ## Running the code
 

@@ -1,6 +1,6 @@
 
   {
-      "name": "Landing Page for Mirra AI (Community)",
+      "name": "Landing Page for Mirra AI",
       "version": "0.1.0",
       "private": true,
       "dependencies": {

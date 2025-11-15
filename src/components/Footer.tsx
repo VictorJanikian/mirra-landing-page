@@ -9,7 +9,7 @@ export function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-3 mb-4">
-              <img src={logo} alt="Mirra AI" className="h-10 w-auto brightness-0 invert" />
+              <img src={logo} alt="Mirra AI" className="h-50 w-auto brightness-0 invert" />
             </div>
             <p className="text-gray-400 mb-6 max-w-md">
               A revolução na criação de conteúdo escalável. Use IA para atrair audiência orgânica e qualificada com muito menos esforço.

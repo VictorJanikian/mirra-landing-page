@@ -14,7 +14,7 @@ export function Hero() {
       <nav className="container mx-auto px-4 py-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img src={logo} alt="Mirra AI" className="h-12 w-auto" />
+            <img src={logo} alt="Mirra AI" className="h-50 w-auto" />
           </div>
           <Button onClick={scrollToForm} size="sm">
             Acesso Antecipado

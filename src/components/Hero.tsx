@@ -8,6 +8,10 @@ export function Hero() {
     document.getElementById("lead-form")?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const scrollToFeatures = () => {
+    document.getElementById("features")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50">
       {/* Navigation */}
@@ -44,7 +48,7 @@ export function Hero() {
                 Quero Acesso Antecipado
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button onClick={scrollToForm} variant="outline" size="lg">
+              <Button onClick={scrollToFeatures} variant="outline" size="lg">
                 Saiba Mais
               </Button>
             </div>

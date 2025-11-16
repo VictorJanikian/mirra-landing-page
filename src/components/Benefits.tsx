@@ -23,7 +23,7 @@ const benefits = [
   {
     icon: BarChart3,
     title: "Escalabilidade Ilimitada",
-    description: "Gerencie vários blogs e páginas simultaneamente com uma única configuração. Cresça sem limites.",
+    description: "Gerencie vários blogs e páginas simultaneamente em uma única conta. Cresça sem limites.",
     stat: "Blogs ilimitados",
   },
 ];

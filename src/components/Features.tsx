@@ -9,11 +9,11 @@ const features = [
   {
     icon: Zap,
     title: "Criação Automática",
-    description: "A IA gera textos e imagens cativantes baseados em suas configurações de tema, SEO, público-alvo e estilo.",
+    description: "A IA gera textos, imagens e, em breve, vídeos cativantes baseados em suas configurações de tema, SEO, público-alvo e estilo.",
   },
   {
     icon: TrendingUp,
-    title: "Aprende e Melhora",
+    title: "Evolução Constante",
     description: "A Mirra analisa seus posts de maior sucesso e replica o que funciona, otimizando continuamente seus resultados.",
   },
   {

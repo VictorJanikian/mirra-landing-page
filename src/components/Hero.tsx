@@ -40,7 +40,7 @@ export function Hero() {
             </h1>
             
             <p className="text-xl text-gray-600 leading-relaxed">
-              Agende e publique automaticamente em WordPress e Instagram. A Mirra AI aprende, cria e posta conteúdo personalizado para atrair audiência orgânica — enquanto você foca na estratégia.
+              Agende e publique automaticamente no WordPress e no Instagram. A Mirra AI aprende, cria e posta conteúdo personalizado para atrair audiência orgânica — enquanto você foca na estratégia.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">

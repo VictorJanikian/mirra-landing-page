@@ -1,48 +1,136 @@
-import { useState } from "react";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Sparkles, CheckCircle2 } from "lucide-react";
-import { toast } from "sonner@2.0.3";
+import { useState, useRef, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Sparkles, CheckCircle2, ChevronDown } from "lucide-react";
+import { countries } from "../data/countries";
+
+function CustomSelect({ value, onChange, options, placeholder }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+        setSearchTerm("");
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const filteredOptions = options.filter(option =>
+    option.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const selectedOption = options.find(opt => opt.name === value);
+
+  return (
+    <div className="relative" ref={dropdownRef}>
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full h-12 px-3 py-2 text-left bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 flex items-center justify-between"
+      >
+        <span className="flex items-center gap-2">
+          {selectedOption ? (
+            <>
+              <span>{selectedOption.flag}</span>
+              <span>{selectedOption.name}</span>
+              <span className="text-gray-500 text-sm">{selectedOption.code}</span>
+            </>
+          ) : (
+            <span className="text-gray-400">{placeholder}</span>
+          )}
+        </span>
+        <ChevronDown className={`h-4 w-4 text-gray-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+      </button>
+
+      {isOpen && (
+        <div className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-xl shadow-2xl">
+          <div className="p-2 border-b border-gray-200">
+            <input
+              type="text"
+              placeholder="Buscar país..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </div>
+          <div style={{ maxHeight: '240px', overflowY: 'auto' }}>
+            {filteredOptions.map((option) => (
+              <button
+                key={option.name}
+                type="button"
+                onClick={() => {
+                  onChange(option);
+                  setIsOpen(false);
+                  setSearchTerm("");
+                }}
+                className="w-full px-4 py-3 text-left hover:bg-gray-100 focus:bg-gray-100 focus:outline-none flex items-center gap-2 transition-colors"
+              >
+                <span>{option.flag}</span>
+                <span className="flex-1">{option.name}</span>
+                <span className="text-gray-500 text-sm">{option.code}</span>
+              </button>
+            ))}
+            {filteredOptions.length === 0 && (
+              <div className="px-4 py-3 text-center text-gray-500 text-sm">
+                Nenhum país encontrado
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export function LeadForm() {
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
+    email: "", 
+    country: "",
     phone: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     setIsSubmitting(true);
 
-    // Simula envio do email para mirra-ai@outlook.com
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
     console.log("Enviando para mirra-ai@outlook.com:", formData);
     
     setIsSubmitting(false);
     setIsSubmitted(true);
-    toast.success("Inscrição realizada com sucesso! Em breve entraremos em contato.");
     
-    // Reset form after 3 seconds
     setTimeout(() => {
-      setFormData({ name: "", email: "", phone: "" });
+      setFormData({ name: "", email: "", country: "", phone: "" });
       setIsSubmitted(false);
     }, 3000);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
+  const handleCountryChange = (country) => {
+    setFormData({
+      ...formData,
+      country: country.name,
+      phone: country.code + " "
+    });
+  };
+
   return (
     <section id="lead-form" className="py-24 bg-gradient-to-br from-blue-600 to-cyan-600 relative overflow-hidden">
-      {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl" />
@@ -66,7 +154,7 @@ export function LeadForm() {
 
           <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12">
             {!isSubmitted ? (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="space-y-6">
                 <div>
                   <label htmlFor="name" className="block text-sm text-gray-700 mb-2">
                     Nome Completo
@@ -100,6 +188,18 @@ export function LeadForm() {
                 </div>
 
                 <div>
+                  <label htmlFor="country" className="block text-sm text-gray-700 mb-2">
+                    País
+                  </label>
+                  <CustomSelect
+                    value={formData.country}
+                    onChange={handleCountryChange}
+                    options={countries}
+                    placeholder="Selecione seu país"
+                  />
+                </div>
+
+                <div>
                   <label htmlFor="phone" className="block text-sm text-gray-700 mb-2">
                     Telefone
                   </label>
@@ -109,17 +209,15 @@ export function LeadForm() {
                     type="tel"
                     value={formData.phone}
                     onChange={handleChange}
-                    placeholder="(00) 00000-0000"
                     required
                     className="h-12"
                   />
                 </div>
 
                 <Button
-                  type="submit"
+                  onClick={handleSubmit}
                   disabled={isSubmitting}
                   className="w-full h-12 bg-gradient-to-r from-blue-700 to-cyan-700 hover:from-blue-800 hover:to-cyan-800"
-                  size="lg"
                 >
                   {isSubmitting ? "Enviando..." : "Quero Acesso Antecipado"}
                 </Button>
@@ -127,7 +225,7 @@ export function LeadForm() {
                 <p className="text-xs text-center text-gray-500">
                   Ao enviar, você concorda em receber comunicações sobre a Mirra AI. Seus dados estão seguros conosco.
                 </p>
-              </form>
+              </div>
             ) : (
               <div className="text-center py-12">
                 <div className="h-20 w-20 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-6">

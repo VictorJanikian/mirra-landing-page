@@ -110,7 +110,6 @@ export const countries = [
   { name: "Kiribati", flag: "🇰🇮", code: "+686" },
   { name: "Kosovo", flag: "🇽🇰", code: "+383" },
   { name: "Kuwait", flag: "🇰🇼", code: "+965" },
-  { name: "Quirguistão", flag: "🇰🇬", code: "+996" },
 
   { name: "Laos", flag: "🇱🇦", code: "+856" },
   { name: "Lesoto", flag: "🇱🇸", code: "+266" },

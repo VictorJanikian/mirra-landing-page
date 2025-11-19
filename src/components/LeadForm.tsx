@@ -98,20 +98,42 @@ export function LeadForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = async () => {
+const handleSubmit = async () => {
     setIsSubmitting(true);
 
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const response = await fetch(
+        "https://mirra-email-function.azurewebsites.net/api/PreOrderEmailFunction?code=8ixO7wS6_J_h0ddVKig_2982s22H5fBgl3Iv12uRX3F0AzFuYtpBxQ==",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            Name: formData.name,
+            Email: formData.email,
+            Country: formData.country,
+            Phone: formData.phone,
+          }),
+        }
+      );
 
-    console.log("Enviando para mirra-ai@outlook.com:", formData);
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    
-    setTimeout(() => {
-      setFormData({ name: "", email: "", country: "", phone: "" });
-      setIsSubmitted(false);
-    }, 3000);
+      if (!response.ok) {
+        throw new Error("Erro ao enviar formulário");
+      }
+
+      setIsSubmitted(true);
+      
+      setTimeout(() => {
+        setFormData({ name: "", email: "", country: "", phone: "" });
+        setIsSubmitted(false);
+      }, 15000);
+    } catch (error) {
+      console.error("Erro ao enviar:", error);
+      alert("Ocorreu um erro ao enviar o formulário. Por favor, tente novamente.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e) => {

@@ -103,7 +103,7 @@ const handleSubmit = async () => {
 
     try {
       const response = await fetch(
-        "https://mirra-email-function.azurewebsites.net/api/PreOrderEmailFunction?code=8ixO7wS6_J_h0ddVKig_2982s22H5fBgl3Iv12uRX3F0AzFuYtpBxQ==",
+        "https://mirra-mkt-email-function.azurewebsites.net/api/PreOrderEmailFunction?code=OhYG3RApwsVmuBc8lq2Q12Xgup_muHr5ibytI7F-GaHiAzFuHTIO_w==",
         {
           method: "POST",
           headers: {
